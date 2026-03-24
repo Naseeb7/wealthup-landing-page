@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const goals = [
   {
@@ -48,23 +51,19 @@ const advantageCards = [
   "Optimized for Tax Efficiency",
 ];
 
-const howItWorksCards = [
-  {
-    title: "Define Your Goal",
-    description:
-      "Start by defining what you want to achieve whether it’s buying a car, travelling, or building long-term wealth. Tell us the goal amount and timeline, and we’ll create a personalized investment plan to help you get there.",
-    icon: "⌕",
-    progress: [true, false, false, false, false],
-    showPhone: true,
-  },
-  {
-    title: "Setup Your Investment Account",
-    description:
-      "Complete a simple and secure account setup with quick KYC verification. This allows you to invest seamlessly through regulated platforms and start building your portfolio.",
-    icon: "◫",
-    progress: [false, true, false, false, false],
-  },
-];
+const howItWorksCarouselSlides = Array.from({ length: 5 }, () => ({
+  title: "Define Your Goal",
+  description:
+    "Start by defining what you want to achieve whether it’s buying a car, travelling, or building long-term wealth. Tell us the goal amount and timeline, and we’ll create a personalized investment plan to help you get there.",
+  icon: "⌕",
+}));
+
+const investmentAccountCard = {
+  title: "Setup Your Investment Account",
+  description:
+    "Complete a simple and secure account setup with quick KYC verification. This allows you to invest seamlessly through regulated platforms and start building your portfolio.",
+  icon: "◫",
+};
 
 const trustLogos = [
   { src: "/assets/gov-login-img%201.png", alt: "DPIIT Startup India" },
@@ -98,21 +97,44 @@ function SectionHeading({
 }
 
 export default function Home() {
+  const [activeHowItWorksIndex, setActiveHowItWorksIndex] = useState(0);
+  const [carPriceValue, setCarPriceValue] = useState(30);
+  const [timeToBuyValue, setTimeToBuyValue] = useState(55);
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveHowItWorksIndex((current) =>
+        (current + 1) % howItWorksCarouselSlides.length,
+      );
+    }, 3500);
+
+    return () => window.clearInterval(intervalId);
+  }, []);
+
+  const activeHowItWorksCard =
+    howItWorksCarouselSlides[activeHowItWorksIndex];
+
+  const sliderTrackStyle = (value: number) =>
+    ({
+      background: `linear-gradient(90deg, #4A90E2 13.46%, #294F7C ${value}%, #EAF4FB ${value}%)`,
+    }) as React.CSSProperties;
+
   return (
     <main className="bg-[var(--color-surface)] text-[var(--color-primary)]">
-      <section className="px-5 pt-6 md:px-[60px] lg:px-[200px]">
-        <div className="rounded-[32px] border border-white/60 bg-white/35 px-6 py-6 shadow-[0_12px_40px_rgba(41,79,124,0.12)] backdrop-blur-sm md:px-12">
-          <nav className="flex items-center justify-between gap-4">
-            <div className="text-[2rem] font-medium tracking-[-0.06em] text-[var(--color-primary)]">
+      <section className="px-0 pt-0">
+        <div className="min-h-[100px] rounded-b-[20px] bg-[rgba(207,230,247,0.2)] px-5 backdrop-blur-[30px] md:px-[60px] lg:px-[200px]">
+          <nav className="flex min-h-[100px] items-center justify-between gap-4">
+            <div className="flex items-center">
               <Image
                 src="/assets/wealthup-new-whitelogo%201.svg"
                 alt="Wealthup"
-                width={148}
-                height={46}
-                className="h-auto w-[132px] invert-[0.58] sepia-[0.18] saturate-[1.2] hue-rotate-[174deg] brightness-[0.62]"
+                width={126}
+                height={40}
+                className="h-auto w-[118px] opacity-70 [filter:brightness(0)_saturate(100%)_invert(33%)_sepia(2%)_saturate(20%)_hue-rotate(328deg)_brightness(94%)_contrast(93%)]"
+                priority
               />
             </div>
-            <button className="rounded-full border border-[#71A6EB] bg-white px-8 py-3 text-lg font-semibold text-[#2C5F9F] shadow-[0_10px_18px_rgba(84,144,225,0.35)] transition-transform hover:-translate-y-0.5">
+            <button className="min-w-[122px] rounded-full bg-[linear-gradient(180deg,#d7ecfb_0%,#b9d7f5_100%)] px-8 py-[9px] text-[0.95rem] font-semibold text-[#2e5d95] shadow-[0_8px_18px_rgba(84,144,225,0.34)]">
               Login
             </button>
           </nav>
@@ -189,9 +211,15 @@ export default function Home() {
                       </div>
                       <input
                         type="range"
-                        defaultValue={30}
+                        min={0}
+                        max={100}
+                        value={carPriceValue}
+                        onChange={(event) =>
+                          setCarPriceValue(Number(event.target.value))
+                        }
                         className="wealth-slider"
                         aria-label="Car price"
+                        style={sliderTrackStyle(carPriceValue)}
                       />
                       <div className="flex justify-between text-sm text-[var(--color-primary)]/45">
                         <span>₹ 5L</span>
@@ -208,9 +236,15 @@ export default function Home() {
                       </div>
                       <input
                         type="range"
-                        defaultValue={55}
+                        min={0}
+                        max={100}
+                        value={timeToBuyValue}
+                        onChange={(event) =>
+                          setTimeToBuyValue(Number(event.target.value))
+                        }
                         className="wealth-slider"
                         aria-label="Time to buy"
+                        style={sliderTrackStyle(timeToBuyValue)}
                       />
                     </div>
 
@@ -293,39 +327,50 @@ export default function Home() {
           {investmentOptions.map((option, index) => (
             <div
               key={option.title}
-              className={`rounded-[32px] border px-8 py-10 shadow-[0_18px_50px_rgba(41,79,124,0.10)] ${
-                option.accent === "dark"
-                  ? "border-[#5F8FC4] bg-[linear-gradient(180deg,#5578A5_0%,#4A6E9D_100%)] text-white"
-                  : "border-[#6CA3E7] bg-white/65 text-[var(--color-primary)]"
-              }`}
+              className="mx-auto h-[138px] w-[232px]"
               style={{
                 transform:
                   index === 0
-                    ? "rotate(-8deg)"
+                    ? "rotate(-30.96deg)"
                     : index === 1
-                      ? "rotate(-2deg)"
-                      : "rotate(-8deg)",
+                      ? "rotate(-8deg)"
+                      : "rotate(30.96deg)",
               }}
             >
-              <div className="flex items-center gap-4">
+              <div className="relative h-[105px] w-[205px]">
                 <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-full border ${
+                  className={`absolute inset-x-0 bottom-[-8px] h-[96px] rounded-[20px] ${
                     option.accent === "dark"
-                      ? "border-white/60 bg-white text-[#50729E]"
-                      : "border-[#5E95DA] bg-white"
+                      ? "bg-[#395a83]"
+                      : "bg-[#d7ebfb]"
+                  }`}
+                />
+                <div
+                  className={`relative z-10 flex h-[105px] w-[205px] items-center gap-4 rounded-[20px] border px-6 py-5 shadow-[0_14px_30px_rgba(41,79,124,0.12)] ${
+                    option.accent === "dark"
+                      ? "border-[#5F8FC4] bg-[linear-gradient(180deg,#5578A5_0%,#4A6E9D_100%)] text-white"
+                      : "border-[#6CA3E7] bg-[#f7fbff] text-[var(--color-primary)]"
                   }`}
                 >
-                  <Image
-                    src={option.icon}
-                    alt=""
-                    width={22}
-                    height={22}
-                    className={option.accent === "dark" ? "invert-[0.3]" : ""}
-                  />
+                  <div
+                    className={`flex h-12 w-12 items-center justify-center rounded-full border ${
+                      option.accent === "dark"
+                        ? "border-white/60 bg-white text-[#50729E]"
+                        : "border-[#5E95DA] bg-white"
+                    }`}
+                  >
+                    <Image
+                      src={option.icon}
+                      alt=""
+                      width={22}
+                      height={22}
+                      className={option.accent === "dark" ? "invert-[0.3]" : ""}
+                    />
+                  </div>
+                  <h3 className="max-w-[120px] text-[1.05rem] font-medium leading-tight tracking-[-0.04em]">
+                    {option.title}
+                  </h3>
                 </div>
-                <h3 className="max-w-[180px] text-4xl font-medium leading-tight tracking-[-0.04em]">
-                  {option.title}
-                </h3>
               </div>
             </div>
           ))}
@@ -414,55 +459,76 @@ export default function Home() {
           description="India&apos;s most intelligent investment platform"
         />
 
-        <div className="mt-14 space-y-8">
-          {howItWorksCards.map((card) => (
-            <article
-              key={card.title}
-              className="overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8"
-            >
-              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
-                <div className="flex flex-col gap-6">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
-                    {card.icon}
-                  </div>
-                  <div className="max-w-[580px]">
-                    <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
-                      {card.title}
-                    </h3>
-                    <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
-                      {card.description}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex gap-3">
-                    {card.progress.map((active, index) => (
-                      <span
-                        key={`${card.title}-${index}`}
-                        className={`block h-3 rounded-full ${
-                          active
-                            ? "w-28 bg-[#31598C]"
-                            : "w-12 bg-[#C7DFF2]"
-                        }`}
-                      />
-                    ))}
-                  </div>
+        <div className="mt-14">
+          <article className="overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
+              <div className="flex flex-col gap-6">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
+                  {activeHowItWorksCard.icon}
                 </div>
-
-                {card.showPhone ? (
-                  <div className="relative mx-auto flex w-full max-w-[260px] justify-center">
-                    <Image
-                      src="/assets/Rectangle.png"
-                      alt="Wealthup mobile app"
-                      width={215}
-                      height={380}
-                      className="h-auto w-[185px] rotate-[8deg] drop-shadow-[0_18px_26px_rgba(42,70,113,0.30)] md:w-[205px]"
+                <div className="max-w-[580px]">
+                  <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
+                    {activeHowItWorksCard.title}
+                  </h3>
+                  <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
+                    {activeHowItWorksCard.description}
+                  </p>
+                </div>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  {howItWorksCarouselSlides.map((_, index) => (
+                    <button
+                      key={`how-it-works-dot-${index}`}
+                      type="button"
+                      aria-label={`Show step ${index + 1}`}
+                      onClick={() => setActiveHowItWorksIndex(index)}
+                      className={`block h-3 rounded-full transition-all ${
+                        index === activeHowItWorksIndex
+                          ? "w-28 bg-[#31598C]"
+                          : "w-12 bg-[#C7DFF2]"
+                      }`}
                     />
-                  </div>
-                ) : (
-                  <div className="hidden lg:block" />
-                )}
+                  ))}
+                </div>
               </div>
-            </article>
-          ))}
+
+              <div className="relative mx-auto flex w-full max-w-[260px] justify-center">
+                <Image
+                  src="/assets/Rectangle.png"
+                  alt="Wealthup mobile app"
+                  width={215}
+                  height={380}
+                  className="h-auto w-[185px] rotate-[8deg] drop-shadow-[0_18px_26px_rgba(42,70,113,0.30)] md:w-[205px]"
+                />
+              </div>
+            </div>
+          </article>
+
+          <article className="mt-8 overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8">
+            <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
+              <div className="flex flex-col gap-6">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
+                  {investmentAccountCard.icon}
+                </div>
+                <div className="max-w-[580px]">
+                  <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
+                    {investmentAccountCard.title}
+                  </h3>
+                  <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
+                    {investmentAccountCard.description}
+                  </p>
+                </div>
+                <div className="mt-4 flex flex-wrap items-center gap-3">
+                  <span className="block h-3 w-12 rounded-full bg-[#C7DFF2]" />
+                  <span className="block h-3 w-28 rounded-full bg-[#31598C]" />
+                  <span className="block h-3 w-12 rounded-full bg-[#C7DFF2]" />
+                  <span className="block h-3 w-12 rounded-full bg-[#C7DFF2]" />
+                  <span className="block h-3 w-12 rounded-full bg-[#C7DFF2]" />
+                </div>
+              </div>
+
+              <div className="hidden lg:block" />
+            </div>
+          </article>
         </div>
       </section>
     </main>

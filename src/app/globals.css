@@ -6,6 +6,7 @@
   --color-primary: #294f7c;
   --color-surface: #cfe6f7;
   --color-card: rgba(255, 255, 255, 0.4);
+  --page-gradient: linear-gradient(90deg, #f8fafc 0%, #cfe6f7 100%);
 }
 
 @theme inline {
@@ -32,10 +33,7 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.5), transparent 35%),
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 30%),
-    linear-gradient(180deg, #d9edf9 0%, #cfe6f7 25%, #c9e2f4 100%);
+  background: var(--page-gradient);
   content: "";
 }
 
@@ -51,33 +49,33 @@ select {
   width: 100%;
   appearance: none;
   border-radius: 999px;
-  background: linear-gradient(90deg, #4b8de1 0%, #4b8de1 30%, #e9f2fb 30%, #e9f2fb 100%);
-  height: 12px;
+  background: linear-gradient(90deg, #4a90e2 13.46%, #294f7c 30%, #eaf4fb 30%);
+  height: 10px;
 }
 
 .wealth-slider::-webkit-slider-thumb {
   appearance: none;
-  width: 22px;
-  height: 22px;
-  border: 3px solid #8ab4ec;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #4a90e2;
   border-radius: 999px;
   background: #294f7c;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
   cursor: pointer;
 }
 
 .wealth-slider::-moz-range-thumb {
-  width: 22px;
-  height: 22px;
-  border: 3px solid #8ab4ec;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #4a90e2;
   border-radius: 999px;
   background: #294f7c;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
   cursor: pointer;
 }
 
 .wealth-slider::-moz-range-track {
   border-radius: 999px;
-  background: #e9f2fb;
-  height: 12px;
+  background: #eaf4fb;
+  height: 10px;
 }
