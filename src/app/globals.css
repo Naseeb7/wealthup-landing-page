@@ -6,13 +6,16 @@
   --color-primary: #294f7c;
   --color-surface: #cfe6f7;
   --color-card: rgba(255, 255, 255, 0.4);
-  --page-gradient: linear-gradient(90deg, #f8fafc 0%, #cfe6f7 100%);
+  --page-gradient: linear-gradient(90deg, #f8fafc 0%, #cfe6f7 50%, #f8fafc 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-urbanist);
+  --color-primary-100: #F8FAFC33;
+  --color-primary-200: #4A90E2;
+  --color-secondary-100: #CFE6F733;
 }
 
 * {
@@ -38,7 +41,6 @@ body::before {
 }
 
 a,
-button,
 input,
 textarea,
 select {

@@ -11,7 +11,7 @@ const HowItWorksSection = dynamic(() => import("./components/HowItWorksSection")
 
 export default function Home() {
   return (
-    <main className="bg-[var(--color-surface)] text-[var(--color-primary)]">
+    <main className="bg-(--page-gradient) text-(--color-primary)">
       <Navbar />
       <HeroSection />
       <BackedBySection />
