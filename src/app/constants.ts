@@ -56,7 +56,7 @@ export const investmentAccountCard = {
 
 export const trustLogos = [
   { src: "/assets/gov-login-img 1.png", alt: "DPIIT Startup India" },
-  { src: "/assets/#startupindia.png", alt: "Startup India" },
+  { src: "/assets/startupindia.png", alt: "Startup India" },
   { src: "/assets/Nvidia_logo.svg 1.png", alt: "Nvidia" },
   {
     src: "/assets/free-razorpay-logo-icon-svg-download-png-1399875 1.png",

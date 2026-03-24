@@ -12,28 +12,28 @@ export default function InvestmentSection() {
         description="Diversified investment options selected and optimized by WealthUp."
       />
 
-      <div className="mt-14 grid gap-6 lg:grid-cols-3 lg:gap-10">
+      <div className="mt-12 grid justify-items-center gap-6 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
         {investmentOptions.map((option, index) => (
           <div
             key={option.title}
-            className="mx-auto h-[138px] w-[232px]"
+            className="mx-auto flex h-[124px] w-full max-w-[232px] items-center justify-center sm:h-[138px]"
             style={{
               transform:
                 index === 0
-                  ? "rotate(-30.96deg)"
+                  ? "rotate(-10deg)"
                   : index === 1
-                  ? "rotate(-8deg)"
-                  : "rotate(30.96deg)",
+                  ? "rotate(-4deg)"
+                  : "rotate(10deg)",
             }}
           >
-            <div className="relative h-[105px] w-[205px]">
+            <div className="relative h-[100px] w-[190px] sm:h-[105px] sm:w-[205px]">
               <div
-                className={`absolute inset-x-0 bottom-[-8px] h-[96px] rounded-[20px] ${
+                className={`absolute inset-x-0 bottom-[-8px] h-[92px] rounded-[20px] sm:h-[96px] ${
                   option.accent === "dark" ? "bg-[#395a83]" : "bg-[#d7ebfb]"
                 }`}
               />
               <div
-                className={`relative z-10 flex h-[105px] w-[205px] items-center gap-4 rounded-[20px] border px-6 py-5 shadow-[0_14px_30px_rgba(41,79,124,0.12)] ${
+                className={`relative z-10 flex h-[100px] w-[190px] items-center gap-3 rounded-[20px] border px-4 py-4 shadow-[0_14px_30px_rgba(41,79,124,0.12)] sm:h-[105px] sm:w-[205px] sm:gap-4 sm:px-6 sm:py-5 ${
                   option.accent === "dark"
                     ? "border-[#5F8FC4] bg-[linear-gradient(180deg,#5578A5_0%,#4A6E9D_100%)] text-white"
                     : "border-[#6CA3E7] bg-[#f7fbff] text-[var(--color-primary)]"
@@ -54,7 +54,7 @@ export default function InvestmentSection() {
                     className={option.accent === "dark" ? "invert-[0.3]" : ""}
                   />
                 </div>
-                <h3 className="max-w-[120px] text-[1.05rem] font-medium leading-tight tracking-[-0.04em]">
+                <h3 className="max-w-[110px] text-base font-medium leading-tight tracking-[-0.04em] sm:max-w-[120px] sm:text-[1.05rem]">
                   {option.title}
                 </h3>
               </div>
@@ -67,10 +67,10 @@ export default function InvestmentSection() {
         {investmentOptions.map((option) => (
           <article
             key={`${option.title}-detail`}
-            className={`border-[#7AADE8] px-8 py-10 ${
+            className={`border-[#7AADE8] px-6 py-8 sm:px-8 sm:py-10 ${
               option.accent === "dark"
                 ? "bg-[linear-gradient(180deg,#496E9A_0%,#4A6F9E_100%)] text-white"
-                : "border-l bg-transparent text-[var(--color-primary)]"
+                : "border-t lg:border-l lg:border-t-0 bg-transparent text-[var(--color-primary)]"
             }`}
           >
             <div className="mb-8 flex items-center gap-4">
@@ -89,9 +89,9 @@ export default function InvestmentSection() {
                   className={option.accent === "dark" ? "invert-[0.3]" : ""}
                 />
               </div>
-              <h3 className="text-2xl font-semibold tracking-[-0.04em]">{option.title}</h3>
+              <h3 className="text-xl font-semibold tracking-[-0.04em] sm:text-2xl">{option.title}</h3>
             </div>
-            <p className="text-lg leading-8 opacity-90">{option.description}</p>
+            <p className="text-base leading-7 opacity-90 sm:text-lg sm:leading-8">{option.description}</p>
           </article>
         ))}
       </div>

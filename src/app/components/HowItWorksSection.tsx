@@ -26,17 +26,17 @@ export default function HowItWorksSection() {
       />
 
       <div className="mt-14">
-        <article className="overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8">
+        <article className="overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-5 py-6 shadow-[0_18px_44px_rgba(41,79,124,0.10)] sm:px-7 sm:py-7 md:px-8 md:py-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
             <div className="flex flex-col gap-6">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
                 {activeHowItWorksCard.icon}
               </div>
               <div className="max-w-[580px]">
-                <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-[#31598C] sm:text-3xl md:text-[2.2rem]">
                   {activeHowItWorksCard.title}
                 </h3>
-                <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
+                <p className="mt-4 text-base leading-7 text-[#31598C]/90 sm:text-lg sm:leading-[1.5] md:text-[1.15rem]">
                   {activeHowItWorksCard.description}
                 </p>
               </div>
@@ -61,23 +61,24 @@ export default function HowItWorksSection() {
                 alt="Wealthup mobile app"
                 width={215}
                 height={380}
+                loading="eager"
                 className="h-auto w-[185px] rotate-[8deg] drop-shadow-[0_18px_26px_rgba(42,70,113,0.30)] md:w-[205px]"
               />
             </div>
           </div>
         </article>
 
-        <article className="mt-8 overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8">
+        <article className="mt-8 overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-5 py-6 shadow-[0_18px_44px_rgba(41,79,124,0.10)] sm:px-7 sm:py-7 md:px-8 md:py-8">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
             <div className="flex flex-col gap-6">
               <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
                 {investmentAccountCard.icon}
               </div>
               <div className="max-w-[580px]">
-                <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
+                <h3 className="text-2xl font-semibold tracking-[-0.05em] text-[#31598C] sm:text-3xl md:text-[2.2rem]">
                   {investmentAccountCard.title}
                 </h3>
-                <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
+                <p className="mt-4 text-base leading-7 text-[#31598C]/90 sm:text-lg sm:leading-[1.5] md:text-[1.15rem]">
                   {investmentAccountCard.description}
                 </p>
               </div>
