@@ -48,21 +48,21 @@ const advantageCards = [
   "Optimized for Tax Efficiency",
 ];
 
-const steps = [
+const howItWorksCards = [
   {
-    title: "Set your goal",
+    title: "Define Your Goal",
     description:
-      "Choose what matters next, whether it is a car, travel, a home, or a custom target.",
+      "Start by defining what you want to achieve whether it’s buying a car, travelling, or building long-term wealth. Tell us the goal amount and timeline, and we’ll create a personalized investment plan to help you get there.",
+    icon: "⌕",
+    progress: [true, false, false, false, false],
+    showPhone: true,
   },
   {
-    title: "Build your plan",
+    title: "Setup Your Investment Account",
     description:
-      "See a suggested mix of investments aligned to your timeline, contribution, and risk profile.",
-  },
-  {
-    title: "Track and adjust",
-    description:
-      "Follow progress over time and rebalance as your goals or market conditions change.",
+      "Complete a simple and secure account setup with quick KYC verification. This allows you to invest seamlessly through regulated platforms and start building your portfolio.",
+    icon: "◫",
+    progress: [false, true, false, false, false],
   },
 ];
 
@@ -104,7 +104,13 @@ export default function Home() {
         <div className="rounded-[32px] border border-white/60 bg-white/35 px-6 py-6 shadow-[0_12px_40px_rgba(41,79,124,0.12)] backdrop-blur-sm md:px-12">
           <nav className="flex items-center justify-between gap-4">
             <div className="text-[2rem] font-medium tracking-[-0.06em] text-[var(--color-primary)]">
-              Wealthup
+              <Image
+                src="/assets/wealthup-new-whitelogo%201.svg"
+                alt="Wealthup"
+                width={148}
+                height={46}
+                className="h-auto w-[132px] invert-[0.58] sepia-[0.18] saturate-[1.2] hue-rotate-[174deg] brightness-[0.62]"
+              />
             </div>
             <button className="rounded-full border border-[#71A6EB] bg-white px-8 py-3 text-lg font-semibold text-[#2C5F9F] shadow-[0_10px_18px_rgba(84,144,225,0.35)] transition-transform hover:-translate-y-0.5">
               Login
@@ -405,45 +411,58 @@ export default function Home() {
       <section className="px-5 pb-24 pt-18 md:px-[60px] lg:px-[200px]">
         <SectionHeading
           title="How It Works?"
-          description="A simple workflow designed to translate life goals into a clear investment plan."
+          description="India&apos;s most intelligent investment platform"
         />
 
-        <div className="mt-14 grid gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(340px,0.75fr)] lg:items-center">
-          <div className="space-y-6">
-            {steps.map((step, index) => (
-              <article
-                key={step.title}
-                className="rounded-[26px] border border-white/70 bg-white/45 p-6 shadow-[0_16px_40px_rgba(41,79,124,0.10)] md:p-7"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(180deg,#4E8FE2_0%,#294F7C_100%)] text-lg font-semibold text-white">
-                    {index + 1}
+        <div className="mt-14 space-y-8">
+          {howItWorksCards.map((card) => (
+            <article
+              key={card.title}
+              className="overflow-hidden rounded-[28px] border border-[#5E95DA] bg-[linear-gradient(90deg,rgba(255,255,255,0.82)_0%,rgba(207,230,247,0.92)_48%,rgba(194,221,242,1)_100%)] px-7 py-7 shadow-[0_18px_44px_rgba(41,79,124,0.10)] md:px-8 md:py-8"
+            >
+              <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-center">
+                <div className="flex flex-col gap-6">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full border border-[#5C95D9] bg-white/35 text-3xl font-medium text-[#31598C]">
+                    {card.icon}
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-semibold tracking-[-0.04em] text-[var(--color-primary)]">
-                      {step.title}
+                  <div className="max-w-[580px]">
+                    <h3 className="text-3xl font-semibold tracking-[-0.05em] text-[#31598C] md:text-[2.2rem]">
+                      {card.title}
                     </h3>
-                    <p className="mt-2 text-lg leading-7 text-[var(--color-primary)]/80">
-                      {step.description}
+                    <p className="mt-4 text-xl leading-[1.25] text-[#31598C]/90 md:text-[1.15rem]">
+                      {card.description}
                     </p>
                   </div>
+                  <div className="mt-4 flex gap-3">
+                    {card.progress.map((active, index) => (
+                      <span
+                        key={`${card.title}-${index}`}
+                        className={`block h-3 rounded-full ${
+                          active
+                            ? "w-28 bg-[#31598C]"
+                            : "w-12 bg-[#C7DFF2]"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
-              </article>
-            ))}
-          </div>
 
-          <div className="relative mx-auto w-full max-w-[460px]">
-            <div className="absolute inset-x-[12%] bottom-7 h-16 rounded-full bg-[#2A7FA4]/45 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[42px] border border-[#6CA3E7] bg-[linear-gradient(180deg,#D7EAF8_0%,#C8E1F4_100%)] px-6 py-8 shadow-[0_24px_70px_rgba(66,124,199,0.28)]">
-              <Image
-                src="/assets/Rectangle.png"
-                alt="Wealthup mobile app"
-                width={215}
-                height={380}
-                className="mx-auto h-auto w-[220px] drop-shadow-[0_16px_30px_rgba(32,71,122,0.35)]"
-              />
-            </div>
-          </div>
+                {card.showPhone ? (
+                  <div className="relative mx-auto flex w-full max-w-[260px] justify-center">
+                    <Image
+                      src="/assets/Rectangle.png"
+                      alt="Wealthup mobile app"
+                      width={215}
+                      height={380}
+                      className="h-auto w-[185px] rotate-[8deg] drop-shadow-[0_18px_26px_rgba(42,70,113,0.30)] md:w-[205px]"
+                    />
+                  </div>
+                ) : (
+                  <div className="hidden lg:block" />
+                )}
+              </div>
+            </article>
+          ))}
         </div>
       </section>
     </main>
